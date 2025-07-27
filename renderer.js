@@ -1,6 +1,8 @@
 let questions = [];
 let currentQuestionIndex = 0;
 let userAnswers = [];
+let timerSeconds = 0;
+let timerInterval = null;
 
 document.getElementById('start-btn').addEventListener('click', async () => {
     console.log("start button clicked")
@@ -13,6 +15,9 @@ document.getElementById('start-btn').addEventListener('click', async () => {
 
     questions = data.questions;
     document.getElementById('exam-title').textContent = data.title;
+
+    timerSeconds = data.timeLimitMinutes * 60;
+    startTimer();
     
     document.getElementById('intro').style.display = 'none';
     document.getElementById('exam-container').style.display = 'block';
@@ -55,7 +60,9 @@ function renderQuestion() {
   `;
 }
 
-function showResults() {
+function showResults(timedOut = false) {
+    clearInterval(timerInterval);
+    
     let score = 0;
     questions.forEach((q, index) => {
         if(userAnswers[index] === q.answerIndex) {
@@ -69,4 +76,27 @@ function showResults() {
         <p>You answered ${score} out of ${questions.length} correctly.</p>
         <p>Score: ${((score / questions.length) * 100).toFixed(1)}%</p>
     `;
+}
+
+function startTimer() {
+    updateTimerDisplay();
+
+    timerInterval = setInterval(() => {
+        timerSeconds--;
+
+        if(timerSeconds <= 0) {
+            clearInterval(timerInterval);
+            showResults(true);
+        } else {
+            updateTimerDisplay();
+        }
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    const minutes = Math.floor(timerSeconds/60);
+    const seconds = timerSeconds % 60;
+    document.getElementById('timer-display').textContent = 
+    `Time Remaining: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+
 }
