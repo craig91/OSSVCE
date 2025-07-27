@@ -1,32 +1,36 @@
-# Prerequisites
-*.d
+# Node modules (installed dependencies)
+node_modules/
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+# Electron build and cache artifacts
+/dist/
+*.log
+*.tsbuildinfo
 
-# Precompiled Headers
-*.gch
-*.pch
+# macOS system files
+.DS_Store
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+# Windows system files
+Thumbs.db
+desktop.ini
 
-# Fortran module files
-*.mod
-*.smod
+# VSCode settings (optional)
+.vscode/
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+# OS-specific trash
+.Trashes
 
-# Executables
-*.exe
-*.out
-*.app
+# Electron crash reports and logs
+*.pid
+*.seed
+*.old
+*.swp
+*.swo
+
+# npm debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Optional: lock files (uncomment if you don’t want to track these)
+# package-lock.json
+# yarn.lock
